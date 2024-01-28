@@ -1,0 +1,16 @@
+.board-wrapper {
+    // min-width: 100%;
+    // min-width: calc(300px * 4);
+    --width: 1440px;
+    // background-color: burlywood;
+    overflow-x: auto;
+
+    .board {
+        width: var(--width);
+    }
+
+    .task-column {
+        // width: 300px;
+        width: calc((var(--width) / 4));
+    }
+}

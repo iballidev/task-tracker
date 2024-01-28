@@ -1,0 +1,68 @@
+<!-- <p>signup works!</p> -->
+
+
+
+<div class="bg-white p-8 rounded-md shadow-md max-w-md w-full mx-auto">
+    <h2 class="text-2xl font-bold mb-6">Sign Up</h2>
+
+
+
+    <!-- <p class="text-sm font-red-400">{{signupForm['errors']?.['error']?.['message'] | json}}</p> -->
+
+    <!-- <ng-container *ngIf="signupForm['errors']?.['error']?.['message'] as message">
+        <div class="bg-red-100 p-4 rounded text-sm text-red-700 font-semibold my-4">
+            <p>{{message}}</p>
+        </div>
+    </ng-container> -->
+
+    <!-- <app-api-response-template [responseMessage]="responseMessage"></app-api-response-template> -->
+
+
+    <form [formGroup]="signupForm" (ngSubmit)="onSubmit(signupForm)" novalidate>
+
+        <div class="mb-4">
+            <label for="email" class="block text-sm font-medium text-gray-600">Email Address</label>
+            <input type="email" id="email" name="email"
+                class="mt-1 p-2 w-full border rounded-md | peer invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500"
+                formControlName="email">
+            <span class="text-sm text-red-500"
+                *ngIf="signupForm.get('email')?.touched && signupForm.get('email')?.invalid">
+                <span *ngIf="signupForm.get('email')?.hasError('required')">Email address is required</span>
+                <span *ngIf="signupForm.get('email')?.hasError('email')"
+                    class="peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">Please enter a valid email
+                    address</span>
+            </span>
+        </div>
+
+        <div class="mb-6">
+            <label for="password" class="block text-sm font-medium text-gray-600">Password</label>
+            <input type="password" id="password" name="password" class="mt-1 p-2 w-full border rounded-md"
+                formControlName="password">
+        </div>
+
+        <div class="mb-6">
+            <label for="confirm_password" class="block text-sm font-medium text-gray-600">Confirm Password</label>
+            <input type="password" id="confirm_password" name="confirm_password"
+                class="mt-1 p-2 w-full border rounded-md" formControlName="confirm_password">
+            <span class="text-red-500 text-xs mt-1" *ngIf="
+                    signupForm.get('confirm_password')?.touched &&
+                    signupForm?.hasError('passwordMismatch')
+                  ">
+                Passwords must match.
+            </span>
+        </div>
+
+
+        <div class="mt-6">
+            <button type="submit" class="w-full bg-teal-500 text-white px-4 py-2 rounded-md hover:bg-teal-600"
+                [disabled]="signupForm.invalid && 
+                signupForm.hasError('termsNotChecked')">Sign
+                Up</button>
+        </div>
+    </form>
+
+    <div class="mt-4">
+        <p class="text-sm text-gray-600">Already have an account? <a [routerLink]="['/auth/login']"
+                class="text-teal-500 hover:underline">Login</a></p>
+    </div>
+</div>
