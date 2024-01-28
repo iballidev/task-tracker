@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { AppError } from '../../common/app-error';
 import { BadInputError } from '../../common/bad-input-error';
 import { ToastrService } from 'ngx-toastr';
+import { ConflictError } from '../../common/conflict-error';
 
 @Component({
   selector: 'app-login',
@@ -22,7 +23,7 @@ export class LoginComponent {
     private _authSvc: AuthService,
     private router: Router,
     private toastr: ToastrService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.buildForm();
@@ -67,12 +68,12 @@ export class LoginComponent {
           // let resetObject = new ResetObjectValues(someObj);
 
           // console.log('resetObject: ', resetObject.reset());
-          // if (err instanceof ConflictError) {
-          //   this.loginForm.setErrors(err.originalError);
-          //   this.responseMessage.message =
-          //     loginForm['errors']?.['error']?.['message'];
-          //   this.responseMessage.type = ApiResponseType.error;
-          // }
+          if (err instanceof ConflictError) {
+            this.loginForm.setErrors(err.originalError);
+            this.responseMessage.message =
+              loginForm['errors']?.['error']?.['message'];
+            this.responseMessage.type = err;
+          }
           if (err instanceof BadInputError) {
             this.loginForm.setErrors(err.originalError); // append error to form
           } else {

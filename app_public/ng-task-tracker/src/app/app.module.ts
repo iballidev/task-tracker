@@ -23,7 +23,7 @@ import { TokenInterceptor } from './helpers/token.interceptor';
     ToolbarComponent,
     HttpClientModule,
     BrowserAnimationsModule, // required animations module
-    ToastrModule.forRoot(), // ToastrModule added
+    ToastrModule.forRoot({ timeOut: 3000 }), // ToastrModule added
   ],
   providers: [
     provideClientHydration(),
@@ -39,4 +39,4 @@ import { TokenInterceptor } from './helpers/token.interceptor';
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService, SignUpUser } from '../../services/auth.service';
 import { AppError } from '../../common/app-error';
 import { BadInputError } from '../../common/bad-input-error';
+import { ToastrService } from 'ngx-toastr';
 
 function passwordMatchValidator(form: any) {
   const password = form.get('password').value;
@@ -27,9 +28,9 @@ export class SignupComponent {
     private fb: FormBuilder,
     // private _authSvc: AuthService,
     private _authSvc: AuthService,
-    // private toastr: ToastrService,
+    private toastr: ToastrService,
     private router: Router
-  ) {}
+  ) { }
   ngOnInit(): void {
     this.buildForm();
   }
@@ -63,7 +64,7 @@ export class SignupComponent {
       this._authSvc.create(data, 'signup').subscribe({
         next: (response: any) => {
           if (response) {
-            // this.toastr.success(response?.message);
+            this.toastr.success("Account successfully created");
             this.router.navigate(['/auth']);
           }
         },

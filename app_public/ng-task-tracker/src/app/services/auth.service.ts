@@ -1,20 +1,24 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, Injector } from '@angular/core';
+import { Inject, Injectable, Injector } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { DataService } from './data.service';
 import * as jwt_decode from 'jwt-decode';
 import { map } from 'rxjs';
+import { DOCUMENT } from '@angular/common';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService extends DataService {
+  localStorage: Storage | undefined;
   // constructor(private router: Router, http: HttpClient, injector: Injector) {
   //   super(environment.baseUrl, http, injector);
   // }
-  constructor(private router: Router, http: HttpClient, injector: Injector) {
+
+  constructor(private router: Router, http: HttpClient, injector: Injector, @Inject(DOCUMENT) private document: Document) {
     super(environment.baseUrl, http, injector);
+    this.localStorage = document.defaultView?.localStorage;
   }
 
   login_user(payload: LoginUser) {
@@ -32,35 +36,16 @@ export class AuthService extends DataService {
   }
 
   set_token_and_roles(accessToken: any, roles: any) {
-    console.log('set_token_and_roles*********');
-    // localStorage.setItem('token', accessToken);
-    // localStorage.setItem('roles', roles);
-
-    // if (typeof localStorage !== 'undefined') {
-    //   localStorage.setItem('token', accessToken);
-    //   localStorage.setItem('roles', roles);
-    // }
-
-    // // else if (typeof sessionStorage !== 'undefined') {
-    // //   // Fallback to sessionStorage if localStorage is not supported
-    // //   sessionStorage.setItem('key', 'value');
-    // // }
-    // else {
-    //   // If neither localStorage nor sessionStorage is supported
-    //   console.log('Web Storage is not supported in this environment.');
-    // }
+    this.localStorage?.setItem('token', accessToken);
+    this.localStorage?.setItem('roles', roles);
   }
 
   logout_user() {
     console.log('log out!');
     this.logout().subscribe((response) => {
       if (response) {
-        // if (typeof localStorage !== 'undefined') {
-        //   localStorage.clear();
-        // } else {
-        //   console.log('Web Storage is not supported in this environment.');
-        // }
-        this.router.navigate(['/']);
+        this.localStorage?.clear();
+        this.router.navigate(['/auth']);
       }
     });
   }
@@ -111,7 +96,7 @@ export class AuthService extends DataService {
   }
 
   get accessToken() {
-    return localStorage.getItem('token') ? localStorage.getItem('token') : null;
+    return this.localStorage?.getItem('token') ? this.localStorage.getItem('token') : null;
   }
 
   get currentUser() {
