@@ -1,0 +1,48 @@
+<!-- <p>task-details works!</p> -->
+
+
+<div class="bg-gray-100 font-sans">
+    <div class="container mx-auto p-8">
+        <div class="bg-white p-8 rounded-lg shadow-md">
+            <h1 class="text-2xl font-bold mb-4">Task Details</h1>
+            <div class="flex flex-col lg:flex-row">
+                <div class="lg:w-1/2 mb-4 lg:mb-0">
+                    <h2 class="text-xl font-semibold mb-2">Title</h2>
+                    <p class="text-gray-700">{{task.title}}</p>
+                </div>
+                <div class="lg:w-1/2">
+                    <h2 class="text-xl font-semibold mb-2">Details</h2>
+                    <p class="text-gray-700">{{task.description}}</p>
+                    <div [ngSwitch]="task.stage">
+                        <div *ngSwitchCase="taskTag?.OPEN" class="text-blue-400 text-sm font-semibold">
+                            {{stages.Open}}
+                        </div>
+                        <div *ngSwitchCase="taskTag?.PENDING" class="text-gray-400 text-sm font-semibold">
+                            {{stages.Pending}}
+                        </div>
+                        <div *ngSwitchCase="taskTag?.IN_PROGRESS" class="text-red-400 text-sm font-semibold">
+                            {{stages.InProgress}}
+                        </div>
+                        <div *ngSwitchCase="taskTag?.COMPLETED" class="text-green-400 text-sm font-semibold">
+                            {{stages.Completed}}
+                        </div>
+                        <div *ngSwitchDefault></div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-8">
+                <h2 class="text-xl font-semibold mb-2">Task Actions</h2>
+                <div class="flex items-center">
+                    <button
+                        class="bg-blue-500 text-white px-4 py-2 rounded-md mr-4 hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300">
+                        Edit
+                    </button>
+                    <button
+                        class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 focus:outline-none focus:ring focus:border-red-300">
+                        Delete
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

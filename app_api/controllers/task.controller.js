@@ -6,25 +6,25 @@ const { User } = require("../models/user.model");
 
 const columns = [
     {
-        id: 'open',
+        id: TASK_STAGE_LIST.Open,
         name: 'Open',
         tasks: [],
         tag: 'openList',
     },
     {
-        id: 'pending',
+        id: TASK_STAGE_LIST.Pending,
         name: 'Pending',
         tasks: [],
         tag: 'pendingList',
     },
     {
-        id: 'inProgress',
+        id: TASK_STAGE_LIST.InProgress,
         name: 'In Progress',
         tasks: [],
         tag: 'inProgressList',
     },
     {
-        id: 'completed',
+        id: TASK_STAGE_LIST.Completed,
         name: 'Completed',
         tasks: [],
         tag: 'completedList',
@@ -196,27 +196,46 @@ const handle_delete_task_stage = async (req, res, next) => {
 
 
 function map_tasks_to_columns(result) {
-    for (let i = 0; i < result.length; i++) {
-        const task = result[i];
-        switch (task.stage) {
-            case TASK_STAGE_LIST.Open:
-                columns[0].tasks.push(task)
-                break;
-
-            case TASK_STAGE_LIST.Pending:
-                columns[1].tasks.push(task)
-                break;
-
-            case TASK_STAGE_LIST.InProgress:
-                columns[2].tasks.push(task)
-                break;
-
-            case TASK_STAGE_LIST.Completed:
-                columns[3].tasks.push(task)
-                break;
-            default:
-                break;
+    for (let i = 0; i < columns.length; i++) {
+        const column = columns[i];
+        console.log("column: ", column.tasks)
+        column.tasks = []
+    }
+    for (let j = 0; j < result.length; j++) {
+        const task = result[j];
+        if (task.stage == TASK_STAGE_LIST.Open) {
+            columns[0].tasks.push(task)
         }
+        if (task.stage == TASK_STAGE_LIST.Pending) {
+            columns[1].tasks.push(task)
+        }
+        if (task.stage == TASK_STAGE_LIST.InProgress) {
+            columns[2].tasks.push(task)
+        }
+        if (task.stage == TASK_STAGE_LIST.Completed) {
+            columns[3].tasks.push(task)
+        }
+
+
+        // switch (task.stage) {
+        //     case TASK_STAGE_LIST.Open:
+        //         columns[0].tasks.push(task)
+        //         break;
+
+        //     case TASK_STAGE_LIST.Pending:
+        //         columns[1].tasks.push(task)
+        //         break;
+
+        //     case TASK_STAGE_LIST.InProgress:
+        //         columns[2].tasks.push(task)
+        //         break;
+
+        //     case TASK_STAGE_LIST.Completed:
+        //         columns[3].tasks.push(task)
+        //         break;
+        //     default:
+        //         break;
+        // }
 
     }
 }

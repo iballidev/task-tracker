@@ -36,6 +36,14 @@ export class DataService {
       .pipe(catchError(this.handleError()));
   }
 
+  update_patch_data(resource: any, url: string){
+    return this.http
+      .patch(`${environment.baseUrl}/${url}`, resource, {
+        withCredentials: true,
+      })
+      .pipe(catchError(this.handleError()));
+  }
+
   logout() {
     localStorage.clear();
     return this.http.get(`${environment.baseUrl}/logout`, {

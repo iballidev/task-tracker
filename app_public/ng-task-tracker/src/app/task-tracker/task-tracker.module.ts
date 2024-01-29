@@ -7,13 +7,15 @@ import { TaskListComponent } from './task-list/task-list.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { AddTaskComponent } from './add-task/add-task.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TaskDetailsComponent } from './task-details/task-details.component';
 
 
 @NgModule({
   declarations: [
     TaskTrackerComponent,
     TaskListComponent,
-    AddTaskComponent
+    AddTaskComponent,
+    TaskDetailsComponent
   ],
   imports: [
     CommonModule,
