@@ -37,16 +37,17 @@ export class TaskService extends DataService {
   }
 
   get_task_details(taskId: string) {
-    console.log('userId: ', taskId);
-    return this.get_data(`tasks/${taskId}`).pipe(
-      map((response) => {
-        console.log('response: ', response);
-        if (response) {
-          return response;
-        }
-        return [];
-      })
-    );
+    console.log('userId^^^: ', taskId);
+    return this.get_data(`tasks/${taskId}`)
+    
+    // .pipe(
+    //   map((response:any) => {
+    //     console.log('response^^^: ', response);
+    //     if (response) {
+    //       return response;
+    //     }
+    //   })
+    // );
   }
 
   update_task_stage(payload: UpdateTaskStage, taskId: string) {

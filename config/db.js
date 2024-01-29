@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
+const config = require("./env");
 
-const dbURI = "mongodb://localhost/task-tracker";
+
+// const dbURI = "mongodb://localhost/task-tracker";
+
+const dbURI = `mongodb+srv://${config.DATABASE_USERNAME}:${config.DATABASE_PASSWORD}@cluster0.fyskfst.mongodb.net/?retryWrites=true&w=majority`;
 mongoose.connect(dbURI, { useNewUrlParser: true });
 
 /**Listening for SIGINT on Windows */

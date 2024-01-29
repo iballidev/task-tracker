@@ -120,10 +120,10 @@ const handle_get_task_list_by_userId = async (req, res, next) => {
 
 const handle_get_task_details = async (req, res, next) => {
     const taskId = req.params.taskId;
-    const response = await Task.findOne({ _id: taskId });
+    const result = await Task.findOne({ _id: taskId });
     res.status(200).json({
         message: "Task details!",
-        response: response
+        task: result
     })
 }
 

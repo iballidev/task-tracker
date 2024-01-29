@@ -11,6 +11,8 @@ const {
     ACCESS_TOKEN_SECRET,
     REFRESH_TOKEN_SECRET,
     EXPRESS_SESSION_KEY,
+    DATABASE_PASSWORD,
+    DATABASE_USERNAME,
 } = process.env;
 
 
@@ -21,6 +23,8 @@ assert(CLIENT_URL, "CLIENT_URL is required");
 assert(ACCESS_TOKEN_SECRET, "ACCESS_TOKEN_SECRET is required");
 assert(REFRESH_TOKEN_SECRET, "REFRESH_TOKEN_SECRET is required");
 assert(EXPRESS_SESSION_KEY, "EXPRESS_SESSION_KEY is required");
+assert(DATABASE_PASSWORD, "DATABASE_PASSWORD is required");
+assert(DATABASE_USERNAME, "DATABASE_USERNAME is required");
 
 module.exports = {
     port: PORT,
@@ -30,4 +34,6 @@ module.exports = {
     ACCESS_TOKEN_SECRET,
     REFRESH_TOKEN_SECRET,
     EXPRESS_SESSION_KEY,
+    DATABASE_PASSWORD,
+    DATABASE_USERNAME,
 };
