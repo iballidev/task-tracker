@@ -23,6 +23,10 @@ const userSchema = new mongoose.Schema({
   refreshToken: String,
   passwordResetToken: String,
   oldPasswordList: [String],
+  createdAt: {
+    type: Date,
+    default: Date.now
+  }
 });
 
 // userSchema.plugin(findOrCreate);
@@ -57,5 +61,5 @@ const validateEmailAddress = (email) => {
 
 
 module.exports.validateEmailAddress = validateEmailAddress;
-module.exports.User = mongoose.model("User", userSchema);;
+module.exports.User = mongoose.model("User", userSchema);
 module.exports.validateUser = validateUser;

@@ -17,7 +17,7 @@ export class AuthService extends DataService {
   // }
 
   constructor(private router: Router, http: HttpClient, injector: Injector, @Inject(DOCUMENT) private document: Document) {
-    super(environment.baseUrl, http, injector);
+    super("", http, injector);
     this.localStorage = document.defaultView?.localStorage;
   }
 
