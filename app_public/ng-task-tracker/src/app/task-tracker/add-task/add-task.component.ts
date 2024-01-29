@@ -63,4 +63,8 @@ export class AddTaskComponent implements OnInit {
       }
     });
   }
+
+  goBack(){
+    history.back()
+  }
 }

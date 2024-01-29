@@ -8,6 +8,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { AddTaskComponent } from './add-task/add-task.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TaskDetailsComponent } from './task-details/task-details.component';
+import { FilterNestedArrayPipe } from '../helpers/filter-nested-array.pipe';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { TaskDetailsComponent } from './task-details/task-details.component';
     TaskTrackerComponent,
     TaskListComponent,
     AddTaskComponent,
-    TaskDetailsComponent
+    TaskDetailsComponent,
+    FilterNestedArrayPipe
   ],
   imports: [
     CommonModule,

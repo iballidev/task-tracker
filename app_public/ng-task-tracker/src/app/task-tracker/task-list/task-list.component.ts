@@ -13,6 +13,9 @@ import { AuthService } from '../../services/auth.service';
   styleUrl: './task-list.component.scss',
 })
 export class TaskListComponent implements OnInit {
+  searchTerm: string = "";
+
+
   columns: any = [
     // {
     //   id: 'open',
@@ -78,7 +81,6 @@ export class TaskListComponent implements OnInit {
     this._taskSvc.get_tasks_by_user_id(userId).subscribe((response: any) => {
       if (response) {
         this.columns = response?.tasks?.result;
-      } else {
       }
     });
   }
@@ -87,4 +89,5 @@ export class TaskListComponent implements OnInit {
     this._taskSvc.update_task_stage(data, taskId).subscribe((response: any) => {
     })
   }
+
 }
