@@ -15,11 +15,19 @@ const routes: Routes = [
     loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
   },
   {
-    path: 'tasks',    
+    path: 'tasks',
     canActivate: [AuthGuard],
     loadChildren: () =>
       import('./task-tracker/task-tracker.module').then(
         (m) => m.TaskTrackerModule
+      ),
+  },
+  {
+    path: 'user-account',
+    canActivate: [AuthGuard],
+    loadChildren: () =>
+      import('./user-account/user-account.module').then(
+        (m) => m.UserAccountModule
       ),
   },
   {

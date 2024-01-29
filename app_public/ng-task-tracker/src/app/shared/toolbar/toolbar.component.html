@@ -103,10 +103,10 @@
                         <div class="py-1" role="none">
                             <ng-container *ngIf="_authSvc.isAuthenticated()">
                                 <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
-                                <a [routerLink]="['/account/profile']" class="text-gray-700 block px-4 py-2 text-sm"
-                                    role="menuitem" tabindex="-1" id="menu-item-0">Your rofile</a>
-                                <a [routerLink]="['/account/settings']" class="text-gray-700 block px-4 py-2 text-sm"
-                                    role="menuitem" tabindex="-1" id="menu-item-0">Account settings</a>
+                                <a [routerLink]="['/user-account/profile']" class="text-gray-700 block px-4 py-2 text-sm"
+                                    role="menuitem" tabindex="-1" id="menu-item-0">Your profile</a>
+                                <!-- <a [routerLink]="['/account/settings']" class="text-gray-700 block px-4 py-2 text-sm"
+                                    role="menuitem" tabindex="-1" id="menu-item-0">Account settings</a> -->
                                 <button class="block px-4 py-2 text-sm text-amber-700" role="menuitem" tabindex="-1"
                                     id="user-menu-item-2" (click)="logoutUser()">Sign out</button>
                             </ng-container>

@@ -1,5 +1,35 @@
+const TASK_STAGE_LIST = require("../../config/task-stage-list");
 const { validateTask, Task } = require("../models/task.model");
 const { User } = require("../models/user.model");
+
+
+
+const columns = [
+    {
+        id: 'open',
+        name: 'Open',
+        tasks: [],
+        tag: 'openList',
+    },
+    {
+        id: 'pending',
+        name: 'Pending',
+        tasks: [],
+        tag: 'pendingList',
+    },
+    {
+        id: 'inProgress',
+        name: 'In Progress',
+        tasks: [],
+        tag: 'inProgressList',
+    },
+    {
+        id: 'completed',
+        name: 'Completed',
+        tasks: [],
+        tag: 'completedList',
+    },
+];
 
 const handle_create_task = async (req, res, next) => {
     const control_fields = ({ title, description, dueDate, userId } = req.body);
@@ -47,9 +77,38 @@ const handle_get_all_task_list = async (req, res, next) => {
             select: '_id email',
         }).exec();
 
+    // for (let i = 0; i < result.length; i++) {
+    //     const task = result[i];
+    //     switch (task.stage) {
+    //         case TASK_STAGE_LIST.Open:
+    //             columns[0].tasks.push(task)
+    //             break;
+
+    //         case TASK_STAGE_LIST.Pending:
+    //             columns[1].tasks.push(task)
+    //             break;
+
+    //         case TASK_STAGE_LIST.InProgress:
+    //             columns[2].tasks.push(task)
+    //             break;
+
+    //         case TASK_STAGE_LIST.Completed:
+    //             columns[3].tasks.push(task)
+    //             break;
+    //         default:
+    //             break;
+    //     }
+
+    // }
+
+    map_tasks_to_columns(result)
+
     res.status(200).json({
         message: `List of all tasks`,
-        tasks: result
+        tasks: {
+            count: result.length,
+            result: columns
+        }
     });
 }
 
@@ -72,12 +131,39 @@ const handle_get_task_list_by_userId = async (req, res, next) => {
             select: '_id email',
         }).exec();
 
+
+    // for (let i = 0; i < result.length; i++) {
+    //     const task = result[i];
+    //     switch (task.stage) {
+    //         case TASK_STAGE_LIST.Open:
+    //             columns[0].tasks.push(task)
+    //             break;
+
+    //         case TASK_STAGE_LIST.Pending:
+    //             columns[1].tasks.push(task)
+    //             break;
+
+    //         case TASK_STAGE_LIST.InProgress:
+    //             columns[2].tasks.push(task)
+    //             break;
+
+    //         case TASK_STAGE_LIST.Completed:
+    //             columns[3].tasks.push(task)
+    //             break;
+    //         default:
+    //             break;
+    //     }
+
+    // }
+    map_tasks_to_columns(result)
+
     res.status(200).json({
         message: `List of tasks`,
-        tasks: result
+        tasks: {
+            count: result.length,
+            result: columns
+        }
     });
-
-
 }
 
 const handle_get_task_details = async (req, res, next) => {
@@ -106,6 +192,33 @@ const handle_delete_task_stage = async (req, res, next) => {
     res.status(200).json({
         message: "Task deleted!"
     })
+}
+
+
+function map_tasks_to_columns(result) {
+    for (let i = 0; i < result.length; i++) {
+        const task = result[i];
+        switch (task.stage) {
+            case TASK_STAGE_LIST.Open:
+                columns[0].tasks.push(task)
+                break;
+
+            case TASK_STAGE_LIST.Pending:
+                columns[1].tasks.push(task)
+                break;
+
+            case TASK_STAGE_LIST.InProgress:
+                columns[2].tasks.push(task)
+                break;
+
+            case TASK_STAGE_LIST.Completed:
+                columns[3].tasks.push(task)
+                break;
+            default:
+                break;
+        }
+
+    }
 }
 
 module.exports = { handle_create_task, handle_get_all_task_list, handle_get_task_list_by_userId, handle_get_task_details, handle_update_task_stage, handle_delete_task_stage };

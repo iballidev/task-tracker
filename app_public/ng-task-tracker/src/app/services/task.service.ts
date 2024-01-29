@@ -2,28 +2,44 @@ import { Injectable, Injector } from '@angular/core';
 import { DataService } from './data.service';
 import { HttpClient } from '@angular/common/http';
 import { response } from 'express';
+import { map } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TaskService extends DataService {
-
   constructor(http: HttpClient, injector: Injector) {
-    super("", http, injector);
+    super('', http, injector);
   }
 
   create_task(payload: Task) {
-    console.log("payload: ", payload)
-    this.create(payload, "/tasks/add").subscribe((response) => {
-      console.log("response: ", response)
-    })
+    return this.create(payload, '/tasks/add').pipe(
+      map((response) => {
+        if (response) {
+          return true;
+        }
+        return null;
+      })
+    );
+  }
+
+  get_tasks_by_user_id(userId: string) {
+    console.log('userId: ', userId);
+    return this.get_data(`tasks/user/${userId}`).pipe(
+      map((response) => {
+        console.log('response: ', response);
+        if (response) {
+          return response;
+        }
+        return [];
+      })
+    );
   }
 }
-
 
 export interface Task {
   title: String;
   description: String;
-  dueDate: String,
-  userId: String,
+  dueDate: String;
+  userId: String;
 }

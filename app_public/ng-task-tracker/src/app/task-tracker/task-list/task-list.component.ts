@@ -1,16 +1,18 @@
-import { Component } from '@angular/core';import {
+import { Component, OnInit } from '@angular/core';
+import {
   CdkDragDrop,
   moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
+import { TaskService } from '../../services/task.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-task-list',
   templateUrl: './task-list.component.html',
-  styleUrl: './task-list.component.scss'
+  styleUrl: './task-list.component.scss',
 })
-export class TaskListComponent {
-
+export class TaskListComponent implements OnInit {
   columns = [
     {
       id: 'open',
@@ -38,6 +40,12 @@ export class TaskListComponent {
     },
   ];
 
+  constructor(private _authSvc: AuthService, private _taskSvc: TaskService) {}
+
+  ngOnInit(): void {
+    this.getTaskList();
+  }
+
   onTaskDropped(event: CdkDragDrop<string[]>): void {
     if (event.previousContainer === event.container) {
       moveItemInArray(
@@ -53,5 +61,16 @@ export class TaskListComponent {
         event.currentIndex
       );
     }
+  }
+
+  getTaskList() {
+    let userId = this._authSvc.currentUser.user_id;
+    this._taskSvc.get_tasks_by_user_id(userId).subscribe((response:any) => {
+      if (response) {
+        console.log('response: ', response);
+        this.columns = response?.tasks?.result;
+      } else {
+      }
+    });
   }
 }

@@ -16,8 +16,13 @@ export class AuthService extends DataService {
   //   super(environment.baseUrl, http, injector);
   // }
 
-  constructor(private router: Router, http: HttpClient, injector: Injector, @Inject(DOCUMENT) private document: Document) {
-    super("", http, injector);
+  constructor(
+    private router: Router,
+    http: HttpClient,
+    injector: Injector,
+    @Inject(DOCUMENT) private document: Document
+  ) {
+    super('', http, injector);
     this.localStorage = document.defaultView?.localStorage;
   }
 
@@ -41,13 +46,15 @@ export class AuthService extends DataService {
   }
 
   logout_user() {
-    console.log('log out!');
-    this.logout().subscribe((response) => {
-      if (response) {
-        this.localStorage?.clear();
-        this.router.navigate(['/auth']);
-      }
-    });
+    const confirmation = confirm('Are sure you want to leave?');
+    !confirmation
+      ? null
+      : this.logout().subscribe((response) => {
+          if (response) {
+            this.localStorage?.clear();
+            this.router.navigate(['/auth']);
+          }
+        });
   }
 
   isAuthenticated(): boolean {
@@ -96,7 +103,9 @@ export class AuthService extends DataService {
   }
 
   get accessToken() {
-    return this.localStorage?.getItem('token') ? this.localStorage.getItem('token') : null;
+    return this.localStorage?.getItem('token')
+      ? this.localStorage.getItem('token')
+      : null;
   }
 
   get currentUser() {

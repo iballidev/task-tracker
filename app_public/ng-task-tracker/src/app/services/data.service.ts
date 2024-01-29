@@ -37,8 +37,7 @@ export class DataService {
   }
 
   logout() {
-    alert("logout!!!")
-    // localStorage.clear();
+    localStorage.clear();
     return this.http.get(`${environment.baseUrl}/logout`, {
       withCredentials: true,
     });
@@ -54,7 +53,7 @@ export class DataService {
 
       // let error = errorResponse.originalError;
 
-      if (error && (error.status || (error?.originalError.status)) === 400) {
+      if (error && (error.status || error?.originalError.status) === 400) {
         console.log('error.error: ', error.error);
         this.toastr.error(
           'The server cannot process the request at the moment!'
@@ -62,11 +61,11 @@ export class DataService {
         return throwError(() => new BadInputError(error));
       }
 
-      if (error && (error.status || (error?.originalError.status)) === 404) {
+      if (error && (error.status || error?.originalError.status) === 404) {
         this.toastr.error('Not found!');
         return throwError(() => new NotFoundError());
       }
-      if (error && (error.status || (error?.originalError.status)) === 409) {
+      if (error && (error.status || error?.originalError.status) === 409) {
         this.toastr.error('Data already exist!');
         return throwError(() => new ConflictError(error));
       }
