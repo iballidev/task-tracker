@@ -77,30 +77,6 @@ const handle_get_all_task_list = async (req, res, next) => {
             select: '_id email',
         }).exec();
 
-    // for (let i = 0; i < result.length; i++) {
-    //     const task = result[i];
-    //     switch (task.stage) {
-    //         case TASK_STAGE_LIST.Open:
-    //             columns[0].tasks.push(task)
-    //             break;
-
-    //         case TASK_STAGE_LIST.Pending:
-    //             columns[1].tasks.push(task)
-    //             break;
-
-    //         case TASK_STAGE_LIST.InProgress:
-    //             columns[2].tasks.push(task)
-    //             break;
-
-    //         case TASK_STAGE_LIST.Completed:
-    //             columns[3].tasks.push(task)
-    //             break;
-    //         default:
-    //             break;
-    //     }
-
-    // }
-
     map_tasks_to_columns(result)
 
     res.status(200).json({
@@ -131,30 +107,6 @@ const handle_get_task_list_by_userId = async (req, res, next) => {
             select: '_id email',
         }).exec();
 
-
-    // for (let i = 0; i < result.length; i++) {
-    //     const task = result[i];
-    //     switch (task.stage) {
-    //         case TASK_STAGE_LIST.Open:
-    //             columns[0].tasks.push(task)
-    //             break;
-
-    //         case TASK_STAGE_LIST.Pending:
-    //             columns[1].tasks.push(task)
-    //             break;
-
-    //         case TASK_STAGE_LIST.InProgress:
-    //             columns[2].tasks.push(task)
-    //             break;
-
-    //         case TASK_STAGE_LIST.Completed:
-    //             columns[3].tasks.push(task)
-    //             break;
-    //         default:
-    //             break;
-    //     }
-
-    // }
     map_tasks_to_columns(result)
 
     res.status(200).json({
@@ -215,27 +167,6 @@ function map_tasks_to_columns(result) {
         if (task.stage == TASK_STAGE_LIST.Completed) {
             columns[3].tasks.push(task)
         }
-
-
-        // switch (task.stage) {
-        //     case TASK_STAGE_LIST.Open:
-        //         columns[0].tasks.push(task)
-        //         break;
-
-        //     case TASK_STAGE_LIST.Pending:
-        //         columns[1].tasks.push(task)
-        //         break;
-
-        //     case TASK_STAGE_LIST.InProgress:
-        //         columns[2].tasks.push(task)
-        //         break;
-
-        //     case TASK_STAGE_LIST.Completed:
-        //         columns[3].tasks.push(task)
-        //         break;
-        //     default:
-        //         break;
-        // }
 
     }
 }

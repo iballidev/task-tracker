@@ -22,6 +22,8 @@ export class AuthGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
+
+      
     if (this.authSvc.isAuthenticated()) {
       return true;
     }

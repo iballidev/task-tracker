@@ -32,44 +32,17 @@
             </div>
             <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
 
-                <div class="flex items-center text-gray-200 font-bold text-2xl">
+                <div class="flex items-center text-gray-200 font-bold xl:text-2xl">
                     TASK TRACKER
                 </div>
                 <div class="hidden sm:ml-6 sm:block">
                     <div class="flex space-x-4">
-                        <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                        <!-- <a href="#" class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium"
-                            aria-current="page">Dashboard</a>
-                        <a href="#"
-                            class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Team</a>
-                        <a href="#"
-                            class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Projects</a>
-                        <a href="#"
-                            class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Calendar</a> -->
-
-                        <!-- <a [routerLink]="['/home']" routerLinkActive="router-link-active"
-                            class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Home</a> -->
                         <a [routerLink]="['/tasks']" routerLinkActive="router-link-active"
                             class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Tasks</a>
                     </div>
                 </div>
             </div>
             <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                <!-- <button type="button"
-                    class="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-                    <span class="absolute -inset-1.5"></span>
-                    <span class="sr-only">View notifications</span>
-                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                        aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
-                    </svg>
-                </button> -->
-
-                <a [routerLink]="['/tasks/add']" routerLinkActive="router-link-active" type="button"
-                    class="relative flex rounded-sm text-gray-300 hover:text-white border border-slate-300 py-1 px-2">Add
-                    new task +</a>
-
 
                 <!-- Profile dropdown -->
                 <div class="relative inline-block text-left">
@@ -77,7 +50,8 @@
                         <button type="button"
                             class="inline-flex w-full justify-center gap-x-1.5 rounded-md px-3 py-2 text-sm font-semibold text-gray-300 hover:text-white"
                             id="menu-button" aria-expanded="true" aria-haspopup="true" (click)="toggleProfileMenu()">
-                            My Account
+                            <!-- My Account -->
+                            <i class="fas fa-user"></i>
                             <svg class="-mr-1 h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor"
                                 aria-hidden="true">
                                 <path fill-rule="evenodd"
@@ -86,25 +60,15 @@
                             </svg>
                         </button>
                     </div>
-
-                    <!--
-                  Dropdown menu, show/hide based on menu state.
-              
-                  Entering: "transition ease-out duration-100"
-                    From: "transform opacity-0 scale-95"
-                    To: "transform opacity-100 scale-100"
-                  Leaving: "transition ease-in duration-75"
-                    From: "transform opacity-100 scale-100"
-                    To: "transform opacity-0 scale-95"
-                -->
                     <div class="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
                         role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1"
                         [ngClass]="{'hidden': !isShowProfileMenu}">
                         <div class="py-1" role="none">
                             <ng-container *ngIf="_authSvc.isAuthenticated()">
                                 <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
-                                <a [routerLink]="['/user-account/profile']" class="text-gray-700 block px-4 py-2 text-sm"
-                                    role="menuitem" tabindex="-1" id="menu-item-0">Your profile</a>
+                                <a [routerLink]="['/user-account/profile']"
+                                    class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1"
+                                    id="menu-item-0">Your profile</a>
                                 <!-- <a [routerLink]="['/account/settings']" class="text-gray-700 block px-4 py-2 text-sm"
                                     role="menuitem" tabindex="-1" id="menu-item-0">Account settings</a> -->
                                 <button class="block px-4 py-2 text-sm text-amber-700" role="menuitem" tabindex="-1"
@@ -128,14 +92,8 @@
     <div class="sm:hidden" id="mobile-menu" [ngClass]="{'hidden': !isShowMobileMenu}">
         <div class="space-y-1 px-2 pb-3 pt-2">
             <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-            <a href="#" class="bg-gray-900 text-white block rounded-md px-3 py-2 text-base font-medium"
-                aria-current="page">Dashboard</a>
-            <a href="#"
-                class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Team</a>
-            <a href="#"
-                class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Projects</a>
-            <a href="#"
-                class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Calendar</a>
+            <a [routerLink]="['/tasks']" routerLinkActive="router-link-active" class="bg-gray-900 text-white block rounded-md px-3 py-2 text-base font-medium"
+                aria-current="page">Tasks</a>                
         </div>
     </div>
 </nav>
