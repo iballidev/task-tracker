@@ -8,23 +8,27 @@
             <div class="flex flex-col lg:flex-row">
                 <div class="lg:w-1/2 mb-4 lg:mb-0">
                     <h2 class="text-xl font-semibold mb-2">Title</h2>
-                    <p class="text-gray-700">{{task.title}}</p>
+                    <p class="text-gray-700">{{task?.title}}</p>
                 </div>
                 <div class="lg:w-1/2">
                     <h2 class="text-xl font-semibold mb-2">Details</h2>
-                    <p class="text-gray-700">{{task.description}}</p>
-                    <div [ngSwitch]="task.stage">
-                        <div *ngSwitchCase="taskTag?.OPEN" class="text-blue-400 text-sm font-semibold">
-                            {{stages.Open}}
+                    <p class="text-gray-700">{{task?.description}}</p>
+                    <div [ngSwitch]="task?.stage">
+                        <div *ngSwitchCase="taskTag?.OPEN">
+                            <span class="font-semibold">Stage: </span> <span
+                                class="text-blue-400 text-sm font-semibold">{{stages.Open}}</span>
                         </div>
-                        <div *ngSwitchCase="taskTag?.PENDING" class="text-gray-400 text-sm font-semibold">
-                            {{stages.Pending}}
+                        <div *ngSwitchCase="taskTag?.PENDING">
+                            <span class="font-semibold">Stage: </span> <span
+                                class="text-gray-400 text-sm font-semibold">{{stages.Pending}}</span>
                         </div>
-                        <div *ngSwitchCase="taskTag?.IN_PROGRESS" class="text-red-400 text-sm font-semibold">
-                            {{stages.InProgress}}
+                        <div *ngSwitchCase="taskTag?.IN_PROGRESS">
+                            <span class="font-semibold">Stage: </span> <span
+                                class="text-red-400 text-sm font-semibold">{{stages.InProgress}}</span>
                         </div>
-                        <div *ngSwitchCase="taskTag?.COMPLETED" class="text-green-400 text-sm font-semibold">
-                            {{stages.Completed}}
+                        <div *ngSwitchCase="taskTag?.COMPLETED">
+                            <span class="font-semibold">Stage: </span> <span
+                                class="text-green-400 text-sm font-semibold">{{stages.Completed}}</span>
                         </div>
                         <div *ngSwitchDefault></div>
                     </div>
@@ -37,7 +41,7 @@
                         class="bg-blue-500 text-white text-sm px-4 py-1 rounded-md mr-4 hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300">
                         Edit
                     </button>
-                    <button (click)="onDelete(task._id)"
+                    <button (click)="deleteTask(task._id)"
                         class="bg-red-500 text-white text-sm px-4 py-1 rounded-md hover:bg-red-600 focus:outline-none focus:ring focus:border-red-300">
                         Delete
                     </button>

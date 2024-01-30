@@ -6,6 +6,7 @@ import {
 } from '@angular/cdk/drag-drop';
 import { TaskService, UpdateTaskStage } from '../../services/task.service';
 import { AuthService } from '../../services/auth.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-task-list',
@@ -14,6 +15,7 @@ import { AuthService } from '../../services/auth.service';
 })
 export class TaskListComponent implements OnInit {
   searchTerm: string = "";
+  subscriptions: Subscription[] = [];
 
 
   columns: any = [
@@ -78,16 +80,27 @@ export class TaskListComponent implements OnInit {
 
   getTaskList() {
     let userId = this._authSvc.currentUser.user_id;
-    this._taskSvc.get_tasks_by_user_id(userId).subscribe((response: any) => {
+    let subscription = this._taskSvc.get_tasks_by_user_id(userId).subscribe((response: any) => {
       if (response) {
         this.columns = response?.tasks?.result;
       }
     });
+
+    this.subscriptions.push(subscription)
   }
 
   updateTaskStage(data: UpdateTaskStage, taskId: string) {
-    this._taskSvc.update_task_stage(data, taskId).subscribe((response: any) => {
+    let subscription = this._taskSvc.update_task_stage(data, taskId).subscribe((response: any) => {
     })
+    this.subscriptions.push(subscription)
   }
 
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((x) => {
+      if (!x.closed) {
+        x.unsubscribe();
+      }
+    });
+  }
 }

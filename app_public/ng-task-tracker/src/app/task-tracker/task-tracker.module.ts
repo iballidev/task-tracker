@@ -9,6 +9,8 @@ import { AddTaskComponent } from './add-task/add-task.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TaskDetailsComponent } from './task-details/task-details.component';
 import { FilterNestedArrayPipe } from '../helpers/filter-nested-array.pipe';
+import { UpdateTaskComponent } from './update-task/update-task.component';
+import { CustomDatePipe } from '../helpers/custom-date.pipe';
 
 
 @NgModule({
@@ -17,7 +19,9 @@ import { FilterNestedArrayPipe } from '../helpers/filter-nested-array.pipe';
     TaskListComponent,
     AddTaskComponent,
     TaskDetailsComponent,
-    FilterNestedArrayPipe
+    FilterNestedArrayPipe,
+    UpdateTaskComponent,
+    CustomDatePipe
   ],
   imports: [
     CommonModule,

@@ -31,7 +31,6 @@ export class DataService {
   }
 
   get_data(url: string) {
-    // /api/tasks/65b78bb33d714011a9bc7ce0
     return this.http
       .get(`${environment.baseUrl}/${url}`, { withCredentials: true })
       .pipe(catchError(this.handleError()));
@@ -40,6 +39,14 @@ export class DataService {
   update_patch_data(resource: any, url: string) {
     return this.http
       .patch(`${environment.baseUrl}/${url}`, resource, {
+        withCredentials: true,
+      })
+      .pipe(catchError(this.handleError()));
+  }
+
+  delete_data(url: string) {
+    return this.http
+      .delete(`${environment.baseUrl}/${url}`, {
         withCredentials: true,
       })
       .pipe(catchError(this.handleError()));
@@ -54,18 +61,16 @@ export class DataService {
 
   private handleError<T>() {
     return (error: HttpErrorResponse | any): Observable<T> => {
-      // return (errorResponse: Response | any): Observable<T> => {
-      // console.log('errorResponse: ', errorResponse);
-      console.log('error: ', error);
-      // console.log('errorResponse.originalError: ', errorResponse.originalError);
-      // console.log('errorResponse: ', errorResponse.status);
-
-      // let error = errorResponse.originalError;
-
       if (error && (error.status || error?.originalError.status) === 400) {
-        console.log('error.error: ', error.error);
         this.toastr.error(
           'The server cannot process the request at the moment!'
+        );
+        return throwError(() => new BadInputError(error));
+      }
+
+      if (error && (error.status || error?.originalError.status) === 401) {
+        this.toastr.error(
+          'Auth failed!'
         );
         return throwError(() => new BadInputError(error));
       }

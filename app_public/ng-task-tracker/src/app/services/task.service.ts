@@ -37,29 +37,39 @@ export class TaskService extends DataService {
   }
 
   get_task_details(taskId: string) {
-    console.log('userId^^^: ', taskId);
+    console.log('taskId>>>: ', taskId);
     return this.get_data(`tasks/${taskId}`)
-    
-    // .pipe(
-    //   map((response:any) => {
-    //     console.log('response^^^: ', response);
-    //     if (response) {
-    //       return response;
-    //     }
-    //   })
-    // );
+      .pipe(
+        map((response: any) => {
+          console.log('response^^^: ', response);
+          if (response) {
+            return response;
+          }
+        })
+      );
   }
 
   update_task_stage(payload: UpdateTaskStage, taskId: string) {
     return this.update_patch_data(payload, `tasks/${taskId}`).pipe(
-      map((response:any) => {
-        console.log('response: ', response);
+      map((response: any) => {
         if (response) {
           return response;
         }
         return [];
       })
     );
+  }
+
+  update_task(payload: any, taskId: string) {
+    return this.update_patch_data(payload, `tasks/${taskId}`).pipe(
+      map((_: any) => {
+        return true;
+      })
+    );
+  }
+
+  delete_task(taskId: string) {
+    return this.delete_data(`tasks/${taskId}`);
   }
 }
 
