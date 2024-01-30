@@ -24,11 +24,11 @@
 
                         <a [routerLink]="['details/', task._id]"
                             *ngFor="let task of column.tasks | filterNestedArray: searchTerm" cdkDrag>
-                            <div class="bg-blue-400 text-white p-4 mb-2 rounded-md shadow-md" [ngClass]="{'bg-gray-300': column.tag=='openList', 'bg-blue-600': column.tag=='pendingList','bg-sky-300': column.tag=='inProgressList',
-                            'bg-green-300': column.tag=='completedList'}">
+                            <div class="bg-blue-400 text-white p-4 mb-2 rounded-md shadow-md" [ngClass]="{'bg-gray-500': column.tag=='openList', 'bg-blue-600': column.tag=='pendingList','bg-sky-300': column.tag=='inProgressList',
+                            'bg-green-500': column.tag=='completedList'}">
                                 <h2 class="text-lg font-bold mb-2">{{ task.title }}</h2>
                                 <!-- <p class="text-sm">Due Date: Jan 31, 2024</p> -->
-                                <p class="text-sm">{{task.dueDate | date}}</p>
+                                <p class="text-sm">Due date: {{task.dueDate | date}}</p>
                             </div>
                         </a>
                     </div>
