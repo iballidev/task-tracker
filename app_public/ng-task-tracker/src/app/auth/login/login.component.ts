@@ -29,14 +29,6 @@ export class LoginComponent {
   ngOnInit(): void {
     this.buildForm();
 
-    
-
-    // Create a URL tree with a specific route and optional parameters
-    const urlTree = this.router.createUrlTree(['/path', { param1: 'value1', param2: 'value2' }]);
-
-    // Generate a URL from the URL tree
-    const url = this.router.serializeUrl(urlTree);
-    console.log("url: ", url)
   }
   buildForm() {
     this.loginForm = this.fb.group({

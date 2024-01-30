@@ -13,7 +13,7 @@ import { AuthService } from '../auth.service';
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
-  constructor(private authSvc: AuthService, private router: Router) { }
+  constructor(private _authSvc: AuthService, private router: Router) { }
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
@@ -24,9 +24,10 @@ export class AuthGuard implements CanActivate {
     | UrlTree {
 
 
-    if (this.authSvc.isAuthenticated()) {
+    if (this._authSvc.isAuthenticated()) {
       return true;
     }
+
 
     this.router.navigate(['/auth/login'], {
       queryParams: { returnUrl: state.url },
