@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService, LoginUser } from '../../services/auth.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AppError } from '../../common/app-error';
 import { BadInputError } from '../../common/bad-input-error';
 import { ToastrService } from 'ngx-toastr';
@@ -22,11 +22,21 @@ export class LoginComponent {
     private fb: FormBuilder,
     private _authSvc: AuthService,
     private router: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
     this.buildForm();
+
+    
+
+    // Create a URL tree with a specific route and optional parameters
+    const urlTree = this.router.createUrlTree(['/path', { param1: 'value1', param2: 'value2' }]);
+
+    // Generate a URL from the URL tree
+    const url = this.router.serializeUrl(urlTree);
+    console.log("url: ", url)
   }
   buildForm() {
     this.loginForm = this.fb.group({
@@ -48,7 +58,8 @@ export class LoginComponent {
         next: (response: any) => {
           if (response) {
             this.toastr.success("You are logged in");
-            this.router.navigate(['/tasks']);
+            let returnUrl = this.route.snapshot.queryParamMap.get("returnUrl")
+            this.router.navigate([returnUrl || '/tasks']);
           }
         },
         error: (err: AppError) => {
